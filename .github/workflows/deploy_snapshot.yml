@@ -2,12 +2,13 @@ name: 📦 YONI Deploy Snapshot
 
 on:
   schedule:
-    - cron: "0 0 * * *" # Läuft täglich um 00:00 UTC
-  workflow_dispatch: # Manuell triggerbar bei Bedarf
+    - cron: "0 0 * * *" # Täglich 00:00 UTC
+  workflow_dispatch: # Manuell triggerbar
 
 jobs:
   snapshot:
     runs-on: ubuntu-latest
+
     steps:
       - name: Checkout Repository
         uses: actions/checkout@v4
@@ -18,6 +19,7 @@ jobs:
           node-version: 20
 
       - name: Generate daily snapshot file
+        id: snapshot
         run: |
           mkdir -p Transzendenz/Reports
           DATE=$(date +'%Y-%m-%d')
@@ -33,3 +35,21 @@ jobs:
           git push
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Send Email Notification
+        uses: dawidd6/action-send-mail@v3
+        with:
+          server_address: smtp.gmail.com
+          server_port: 587
+          username: ${{ secrets.MAIL_USER }}
+          password: ${{ secrets.MAIL_PASS }}
+          subject: "📦 YONI Deploy Snapshot — ${{ github.repository }} @ $(date +'%Y-%m-%d')"
+          to: ${{ secrets.MAIL_TO }}
+          from: "YONI AutoBot <bot@pihoch2.me>"
+          body: |
+            Snapshot erfolgreich erstellt:
+            ${{ github.repository }}/Transzendenz/Reports/Deploy-Status-$(date +'%Y-%m-%d').md
+
+            Status: ✅ Erfolgreich abgeschlossen  
+            Zeit: $(date +'%Y-%m-%d %H:%M:%S')  
+            Workflow: ${{ github.workflow }}
