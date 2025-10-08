@@ -1,0 +1,38 @@
+<!doctype html><html lang="de"><head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Kontakt • YONI</title><meta name="theme-color" content="#0b0b10">
+<style>
+:root{--bg:#0b0b10;--panel:rgba(255,255,255,.06);--text:#f3f3f7;--brand:#7c3aed}
+*{box-sizing:border-box} body{margin:0;background:radial-gradient(1200px 600px at 20% 0%,#1b1030 0,transparent 60%),radial-gradient(1200px 600px at 100% 100%,#0d2230 0,transparent 50%),var(--bg);color:var(--text);font-family:-apple-system,Inter,Segoe UI,Roboto,Arial,sans-serif}
+.wrap{max-width:720px;margin:0 auto;padding:24px}.card{background:var(--panel);border:1px solid rgba(255,255,255,.08);border-radius:16px;padding:16px}
+label{display:block;margin:10px 0 6px 0;opacity:.9}
+input,textarea{width:100%;padding:12px;border-radius:12px;border:1px solid rgba(255,255,255,.1);background:rgba(255,255,255,.06);color:var(--text)}
+button{background:var(--brand);color:#fff;border:none;border-radius:12px;padding:12px 16px;margin-top:12px;font-weight:700}
+.row{display:grid;grid-template-columns:1fr 1fr;gap:8px}.muted{opacity:.7}.hidden{display:none}
+</style></head><body><div class="wrap"><div class="card">
+<h1>Kontakt</h1><p class="muted">Schnell, präzise, direkt in dein Postfach.</p>
+<form id="f">
+  <label>Name <input name="name" autocomplete="name" placeholder="Dein Name"></label>
+  <div class="row">
+    <label>E‑Mail <input name="email" type="email" autocomplete="email" required placeholder="you@example.com"></label>
+    <label>Betreff <input name="subject" placeholder="Worum geht's?"></label>
+  </div>
+  <label>Nachricht <textarea name="message" rows="6" required placeholder="Sag’s. YONI regelt."></textarea></label>
+  <input class="hidden" name="website" tabindex="-1" autocomplete="off">
+  <button type="submit">Senden</button>
+</form><p id="resp" class="muted"></p></div></div>
+<script>
+(function(){
+  const form=document.getElementById('f'), resp=document.getElementById('resp');
+  form.addEventListener('submit', async (e)=>{
+    e.preventDefault(); resp.textContent='Sende …';
+    const data=Object.fromEntries(new FormData(form).entries());
+    try{
+      const r=await fetch('/api/send-email',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(data)});
+      const j=await r.json().catch(()=>({})); 
+      if(r.ok && j.ok){ resp.textContent='✅ Gesendet. Check dein Postfach.'; form.reset(); }
+      else{ resp.textContent='❌ Fehler: '+(j.error||r.statusText); }
+    }catch(_){ resp.textContent='❌ Netzwerkfehler.'; }
+  });
+})();
+</script></body></html>
