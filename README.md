@@ -62,6 +62,29 @@ curl -s http://localhost:8787/chat -H "Content-Type: application/json" -d '{ "us
 
 ---
 
+## Vercel Deployment
+
+Dieses Projekt kann auf Vercel deployed werden. Um Umgebungsvariablen zu synchronisieren:
+
+```bash
+# 1. Projekt mit Vercel verbinden (falls noch nicht verbunden)
+vercel link
+
+# 2. Umgebungsvariablen exportieren
+export OPENAI_API_KEY=sk-...
+export STRIPE_WEBHOOK_SECRET=whsec_...
+export GITHUB_WEBHOOK_SECRET=...
+export GITHUB_APP_INSTALLATION_TOKEN=...
+export X148_ALIAS=148-Amon
+
+# 3. Sync-Script ausführen
+bash vercel_env_sync.sh
+```
+
+Das Script synchronisiert alle Variablen zu Vercel (production, preview & development).
+
+---
+
 ## Nächste Schritte
 
 - Realtime‑Pfad (WebRTC/WebSocket) für Voice/Audio aktivieren.  
