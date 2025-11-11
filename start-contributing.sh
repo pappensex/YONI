@@ -26,7 +26,7 @@ CURRENT_BRANCH=$(git branch --show-current)
 # Ask for feature name
 echo -e "${BLUE}What feature or fix are you working on?${NC}"
 echo -e "${PURPLE}(e.g., 'fix-contact-form', 'add-dark-mode', 'improve-accessibility')${NC}"
-read -p "Feature name: " FEATURE_NAME
+read -r -p "Feature name: " FEATURE_NAME
 
 if [ -z "$FEATURE_NAME" ]; then
     echo "❌ Feature name cannot be empty"
