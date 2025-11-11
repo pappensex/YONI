@@ -62,6 +62,13 @@ curl -s http://localhost:8787/chat -H "Content-Type: application/json" -d '{ "us
 
 ---
 
+## Weitere Dokumentation
+
+- **[Copilot PR Import Anleitung](COPILOT_PR_IMPORT.md)** – Workflow zum Importieren von Pull Requests aus dem copilot/tasks Repository
+- **[Local Run Guide](YONI_Local_Run_Guide.md)** – Anleitung zum lokalen Ausführen verschiedener Komponenten
+
+---
+
 ## Nächste Schritte
 
 - Realtime‑Pfad (WebRTC/WebSocket) für Voice/Audio aktivieren.  
