@@ -52,6 +52,27 @@ curl -s http://localhost:8787/chat -H "Content-Type: application/json" -d '{ "us
 
 ---
 
+## Vercel Deployment
+
+This application can be deployed on Vercel. Before deploying, you need to configure environment variables.
+
+**📋 See [VERCEL_ENV.md](./VERCEL_ENV.md) for a complete list of required environment variables.**
+
+### Quick Deploy
+
+```bash
+# Install Vercel CLI
+npm install -g vercel
+
+# Deploy to Vercel
+vercel
+
+# List configured environment variables
+vercel env ls
+```
+
+---
+
 ## Security Baseline
 
 - **API‑Key niemals** an Clients weiterreichen.  
