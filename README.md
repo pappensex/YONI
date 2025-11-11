@@ -62,6 +62,34 @@ curl -s http://localhost:8787/chat -H "Content-Type: application/json" -d '{ "us
 
 ---
 
+## Deployment
+
+### Vercel Environment Variables Setup
+
+Das Projekt enthält ein Skript zum automatischen Einrichten von Umgebungsvariablen in Vercel:
+
+```bash
+./setup-vercel-env.sh
+```
+
+**⚠️ WICHTIG: Nur auf vertrauenswürdiger Maschine ausführen!**
+
+Das Skript liest die folgenden Umgebungsvariablen aus der aktuellen Shell (z.B. Codespaces-Secrets) und fügt sie sowohl zu `production` als auch `preview` in Vercel hinzu:
+
+- `OPENAI_API_KEY`
+- `STRIPE_WEBHOOK_SECRET`
+- `GITHUB_WEBHOOK_SECRET`
+- `GITHUB_APP_INSTALLATION_TOKEN`
+- `X148_ALIAS`
+
+Leere Variablen werden übersprungen und eine Warnung ausgegeben.
+
+**Voraussetzungen:**
+- Vercel CLI installiert und authentifiziert (`npm i -g vercel && vercel login`)
+- Umgebungsvariablen in der Shell gesetzt (z.B. über GitHub Codespaces Secrets)
+
+---
+
 ## Nächste Schritte
 
 - Realtime‑Pfad (WebRTC/WebSocket) für Voice/Audio aktivieren.  
