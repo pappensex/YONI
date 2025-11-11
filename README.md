@@ -68,4 +68,11 @@ curl -s http://localhost:8787/chat -H "Content-Type: application/json" -d '{ "us
 - Tooling erweitern (z.B. Sensoren, Geräte, Kalender), aber **Idempotenz** & **Timeouts** beachten.  
 - Beobachtbarkeit: Metriken/Tracing für Tool‑Latenzen.
 
+---
+
+## Dokumentation
+
+- **[VERCEL_ENV_GUIDE.md](VERCEL_ENV_GUIDE.md)** – Vercel Environment Variables verwalten (vercel env ls)
+- **[YONI_Local_Run_Guide.md](YONI_Local_Run_Guide.md)** – Lokaler Testmodus
+
 Viel Spaß. 💫
