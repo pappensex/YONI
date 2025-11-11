@@ -1,15 +1,18 @@
-import type { Metadata } from 'next'
+import type { Metadata, Viewport } from 'next'
 import './globals.css'
 
 export const metadata: Metadata = {
   title: 'YONI • Überhochglitzer App',
   description: 'Ein sicherer, liebevoller Raum für mentale Gesundheit – digital, fachärztlich begleitet und technisch perfekt.',
-  themeColor: '#0a0a0a',
   manifest: '/manifest.webmanifest',
   icons: {
     icon: '/icon-192.png',
     apple: '/icon-192.png',
   },
+}
+
+export const viewport: Viewport = {
+  themeColor: '#0a0a0a',
 }
 
 export default function RootLayout({
