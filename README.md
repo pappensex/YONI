@@ -62,6 +62,24 @@ curl -s http://localhost:8787/chat -H "Content-Type: application/json" -d '{ "us
 
 ---
 
+## Copilot PR Import
+
+Für das Importieren externer Copilot PRs mit automatischer Governance-Durchsetzung:
+
+```bash
+./import-copilot-pr.sh <PR_NUMBER>
+```
+
+Das Script erzwingt automatisch:
+- **Einzelne Stripe Webhook Route** (nur TypeScript, keine .js Dateien)
+- **TypeScript-Only Policy** (`allowJs: false` in tsconfig.json)
+- **Keine Duplikate** (Dateien mit gleichem Namen aber verschiedenen Erweiterungen)
+- **Build-Validierung** vor dem Push
+
+Details siehe [COPILOT_PR_IMPORT.md](./COPILOT_PR_IMPORT.md)
+
+---
+
 ## Nächste Schritte
 
 - Realtime‑Pfad (WebRTC/WebSocket) für Voice/Audio aktivieren.  
