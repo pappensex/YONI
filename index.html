@@ -8,8 +8,8 @@
   <meta name="description" content="YONI: Creator‑KI, Auto‑Translate, Transzendenz‑Hub. Minimal Flat Build für Vercel.">
   <link rel="manifest" href="/manifest.webmanifest">
   <link rel="apple-touch-icon" href="/icon-192.png">
+  <link rel="stylesheet" href="/theme-tokens.css">
   <style>
-    :root{--bg:#0b0b10;--panel:rgba(255,255,255,.06);--text:#f3f3f7;--brand:#7c3aed;--radius:14px;}
     *{box-sizing:border-box} body{margin:0;background:radial-gradient(1200px 600px at 20% 0%,#1b1030 0,transparent 60%),radial-gradient(1200px 600px at 100% 100%,#0d2230 0,transparent 50%),var(--bg);color:var(--text);font-family:-apple-system,BlinkMacSystemFont,Segoe UI,Inter,Roboto,Arial,sans-serif}
     .wrap{max-width:860px;margin:40px auto;padding:16px}
     .card{background:var(--panel);border:1px solid rgba(255,255,255,.08);border-radius:var(--radius);padding:16px}
@@ -21,27 +21,27 @@
     .item{background:rgba(255,255,255,.05);padding:10px;border-radius:12px}
   </style>
 </head>
-<body>
+<body class="starfield-bg">
   <div class="wrap">
-    <div class="card">
-      <h1>YONI • pi² Control</h1>
+    <div class="card glitzer-card">
+      <h1 class="anim-sparkle">YONI • pi² Control</h1>
       <div class="muted">Vercel‑Minimal • Creator‑KI • Auto‑Translate • Transzendenz</div>
       <div class="row">
-        <button id="install">Offline aktivieren</button>
-        <button id="a2hs">Zum Home‑Bildschirm</button>
+        <button id="install" class="glitzer-button">Offline aktivieren</button>
+        <button id="a2hs" class="glitzer-button">Zum Home‑Bildschirm</button>
       </div>
       <p class="muted" id="env"></p>
     </div>
 
-    <div class="card" style="margin-top:16px">
-      <h2>Transzendenz</h2>
+    <div class="card glitzer-card" style="margin-top:16px">
+      <h2 class="anim-sparkle-delayed">Transzendenz</h2>
       <div class="row">
         <select id="mode"><option>Consensus</option><option>Contrast</option><option>Chain</option></select>
         <label class="muted"><input type="checkbox" id="auto" checked> Auto‑Translate → Deutsch</label>
       </div>
       <textarea id="q" placeholder="Frag dein Multi‑Kollektiv …"></textarea>
       <div class="row">
-        <button id="ask">Fusion starten</button>
+        <button id="ask" class="glitzer-button">Fusion starten</button>
       </div>
       <div id="out" class="feed"></div>
     </div>
