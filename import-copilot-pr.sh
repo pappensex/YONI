@@ -58,13 +58,34 @@ echo ""
 echo "🏛️  Enforcing company governance policies..."
 echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
 
-# Policy 1: Single Stripe webhook route (remove .js, keep only .ts)
-echo "📋 Policy 1: Enforcing single Stripe webhook route (TypeScript only)"
-if [ -f api/stripe/webhook/route.js ]; then
-    echo "  → Removing api/stripe/webhook/route.js"
-    rm -f api/stripe/webhook/route.js
+# Policy 1: Remove all .js/.jsx files that have .ts/.tsx equivalents (TypeScript-only)
+echo "📋 Policy 1: Enforcing TypeScript-only policy - removing duplicate JS/JSX files"
+removed_count=0
+
+# Find and remove .js files that have .ts equivalents
+while IFS= read -r jsfile; do
+    tsfile="${jsfile%.js}.ts"
+    if [ -f "$tsfile" ]; then
+        echo "  → Removing $jsfile (TypeScript equivalent exists)"
+        rm -f "$jsfile"
+        ((removed_count++))
+    fi
+done < <(git ls-files "*.js")
+
+# Find and remove .jsx files that have .tsx equivalents
+while IFS= read -r jsxfile; do
+    tsxfile="${jsxfile%.jsx}.tsx"
+    if [ -f "$tsxfile" ]; then
+        echo "  → Removing $jsxfile (TypeScript equivalent exists)"
+        rm -f "$jsxfile"
+        ((removed_count++))
+    fi
+done < <(git ls-files "*.jsx")
+
+if [ $removed_count -eq 0 ]; then
+    echo "  ✓ No duplicate JavaScript files found"
 else
-    echo "  ✓ No JavaScript webhook route found"
+    echo "  ✓ Removed $removed_count duplicate JavaScript file(s)"
 fi
 
 # Policy 2: TypeScript-only (set allowJs: false in tsconfig.json)
@@ -91,7 +112,13 @@ echo "🔍 Checking for duplicate routes..."
 echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
 
 # Find files with same name but different extensions (potential duplicates)
-git ls-files | sed "s/\.[^.]*$//" | sort | uniq -d | tee /tmp/dupes.txt
+# Use find instead of git ls-files to check actual filesystem after removals
+find . -type f \( -name "*.ts" -o -name "*.tsx" -o -name "*.js" -o -name "*.jsx" \) \
+  ! -path "*/node_modules/*" \
+  ! -path "*/.git/*" \
+  ! -path "*/dist/*" \
+  ! -path "*/build/*" \
+  | sed "s/\.[^.]*$//" | sort | uniq -d | tee /tmp/dupes.txt
 
 if [ -s /tmp/dupes.txt ]; then
     echo "❌ Duplicate routes detected:"

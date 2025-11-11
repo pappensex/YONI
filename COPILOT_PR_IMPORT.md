@@ -17,20 +17,24 @@ This script helps maintain code quality and consistency by:
 
 The script automatically enforces the following policies:
 
-### 1. Single Stripe Webhook Route
-- **Rule**: Only TypeScript webhook routes are allowed
-- **Action**: Removes `api/stripe/webhook/route.js` if it exists
-- **Keeps**: `api/stripe/webhook/route.ts`
+### 1. TypeScript-Only Codebase (Remove Duplicate JS/JSX)
+- **Rule**: All code must use TypeScript; JavaScript files are not allowed when TypeScript equivalents exist
+- **Action**: Automatically removes all `.js` and `.jsx` files that have corresponding `.ts` or `.tsx` files
+- **Examples**: 
+  - If both `route.js` and `route.ts` exist, removes `route.js`
+  - If both `Component.jsx` and `Component.tsx` exist, removes `Component.jsx`
+- **Purpose**: Ensures type safety and consistency across the codebase
 
-### 2. TypeScript-Only Codebase
-- **Rule**: JavaScript files are not allowed (`allowJs: false`)
-- **Action**: Updates or adds `"allowJs": false` in `tsconfig.json`
-- **Purpose**: Ensures type safety across the codebase
+### 2. TypeScript Configuration
+- **Rule**: JavaScript files should not be allowed (`allowJs: false`)
+- **Action**: Updates or adds `"allowJs": false` in `tsconfig.json` if it exists
+- **Purpose**: Enforces TypeScript-only at the compiler level
 
 ### 3. No Duplicate Routes
-- **Rule**: Files with the same name but different extensions are not allowed
-- **Check**: Scans all tracked files for duplicates
-- **Action**: Fails the import if duplicates are found
+- **Rule**: After cleanup, no files with the same name but different extensions should exist
+- **Check**: Scans filesystem (after removals) for any remaining duplicates
+- **Action**: Fails the import if duplicates are found after cleanup
+- **Coverage**: Checks `.ts`, `.tsx`, `.js`, `.jsx` files (excluding node_modules, dist, build, .git)
 
 ## Usage
 
