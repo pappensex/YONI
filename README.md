@@ -62,6 +62,30 @@ curl -s http://localhost:8787/chat -H "Content-Type: application/json" -d '{ "us
 
 ---
 
+## Copilot PR Import
+
+Das Repository enthält ein Hilfsskript zum automatischen Importieren von Patches aus Copilot Task PRs:
+
+```bash
+./import-copilot-pr.sh <PR_NUMMER>
+```
+
+**Beispiel:**
+```bash
+./import-copilot-pr.sh 123
+```
+
+Das Skript:
+- Fetched automatisch von origin
+- Erstellt einen Branch `import/copilot-pr-<NUMMER>`
+- Lädt den Patch von `https://github.com/copilot/tasks/pull/<NUMMER>.patch` herunter
+- Prüft auf Konflikte
+- Wendet den Patch mit erhaltener Autorenhistorie an (`git am`)
+
+Bei Konflikten zeigt das Skript hilfreiche Anleitungen zur manuellen Lösung.
+
+---
+
 ## Nächste Schritte
 
 - Realtime‑Pfad (WebRTC/WebSocket) für Voice/Audio aktivieren.  
