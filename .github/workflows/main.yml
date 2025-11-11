@@ -1,5 +1,4 @@
 name: CI for YONI (x148)
-
 # Trigger the workflow on pushes to `main` and PRs targeting `main`.
 on:
   push:
