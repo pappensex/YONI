@@ -1,0 +1,37 @@
+name: Deploy YONI-app to Vercel
+
+on:
+  workflow_dispatch: # manueller 1-Click-Trigger
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm install
+
+      - name: Build project
+        run: npm run build
+
+      # Optional: nur wenn du lint nutzen willst
+      # - name: Lint
+      #   run: npm run lint
+
+      - name: Deploy to Vercel
+        uses: vercel/vercel-action@v3
+        with:
+          vercel-org-id: ${{ secrets.VERCEL_ORG_ID }}
+          vercel-project-id: ${{ secrets.VERCEL_PROJECT_ID }}
+          vercel-args: '--prod'
+        env:
+          VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN }}
