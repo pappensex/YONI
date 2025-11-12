@@ -3,6 +3,7 @@ import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Progress } from "@/components/ui/progress";
 import { CheckCircle, AlertTriangle, XCircle, RefreshCw } from "lucide-react";
+import { calculateSubtasksDone } from "./notionFormulas";
 
 export default function YoniDeployControlCenter() {
   const [statusData, setStatusData] = useState([]);
@@ -20,9 +21,16 @@ export default function YoniDeployControlCenter() {
       const text = await res.text();
       const parsed = parseStatusMarkdown(text);
       setStatusData(parsed);
-      const done = parsed.filter((i) => i.status === "✅").length;
+      
+      // Calculate subtasks done using Notion-style formula
+      const done = parsed.filter((i) => i.status.includes("✅")).length;
       const total = parsed.length;
-      setProgress(Math.round((done / total) * 100));
+      
+      // Apply toNumber(format(round(prop("Subtasks Done")))) formula
+      const subtasksData = { "Subtasks Done": (done / total) * 100 };
+      const calculatedProgress = calculateSubtasksDone(subtasksData);
+      
+      setProgress(calculatedProgress);
     } catch (err) {
       console.error("Status-Load-Error", err);
     }
@@ -34,10 +42,9 @@ export default function YoniDeployControlCenter() {
     return lines.slice(2).map((line) => {
       const cols = line.split("|").map((c) => c.trim());
       return {
-        id: cols[1],
-        task: cols[2],
-        status: cols[3],
-        comment: cols[4],
+        task: cols[1],
+        status: cols[2],
+        comment: cols[3],
       };
     });
   };
@@ -58,13 +65,13 @@ export default function YoniDeployControlCenter() {
       </div>
 
       <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-4">
-        {statusData.map((item) => (
+        {statusData.map((item, index) => (
           <Card
-            key={item.id}
+            key={index}
             className={`border-2 rounded-2xl shadow-md ${
-              item.status === "✅"
+              item.status.includes("✅")
                 ? "border-green-500"
-                : item.status === "⚙️"
+                : item.status.includes("🔄")
                 ? "border-yellow-400"
                 : "border-red-500"
             }`}
@@ -72,9 +79,9 @@ export default function YoniDeployControlCenter() {
             <CardContent className="p-4 space-y-2">
               <div className="flex items-center justify-between">
                 <h2 className="font-semibold text-lg">{item.task}</h2>
-                {item.status === "✅" && <CheckCircle className="text-green-500" />}
-                {item.status === "⚙️" && <AlertTriangle className="text-yellow-500" />}
-                {item.status === "❌" && <XCircle className="text-red-500" />}
+                {item.status.includes("✅") && <CheckCircle className="text-green-500" />}
+                {item.status.includes("🔄") && <AlertTriangle className="text-yellow-500" />}
+                {item.status.includes("❌") && <XCircle className="text-red-500" />}
               </div>
               <p className="text-sm text-muted-foreground">{item.comment}</p>
             </CardContent>
