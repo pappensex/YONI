@@ -16,9 +16,12 @@ Dieses Verzeichnis enthält die strukturierte Task-Verwaltung für den YONI-Laun
 
 ```
 project-ops/launch/
-├── notion-template.json   # Strukturierte Task-Daten (JSON)
-├── tasks.csv             # Flache Task-Liste (CSV)
-└── README.md            # Diese Dokumentation
+├── notion-template.json         # Strukturierte Task-Daten (Notion-kompatibel)
+├── notion-template.schema.json  # JSON Schema (draft-07) für Validierung
+├── validate-notion-template.js  # Validierungsscript für Datenqualität
+├── test-validate.js             # Test-Suite für Validierung
+├── tasks.csv                    # Flache Task-Liste (CSV)
+└── README.md                    # Diese Dokumentation
 ```
 
 ## 🪄 Quickstart (lokal)
@@ -30,6 +33,33 @@ git clone https://github.com/pappensex/YONI-app.git
 cd YONI-app/project-ops/launch
 cat notion-template.json | jq '.title'
 ```
+
+### ✅ Validierung
+
+Das Template kann gegen das JSON Schema validiert und auf Datenqualität geprüft werden:
+
+```bash
+# Lokal im Verzeichnis
+node validate-notion-template.js
+
+# Oder mit npm (aus Root-Verzeichnis)
+npm run validate:notion
+
+# Tests ausführen
+npm run test:notion
+
+# Ausgabe (bei Erfolg):
+# ✅ Schema validation passed
+# ✅ All data quality checks passed
+# ✅ No problematic emojis found
+```
+
+Das Validierungsscript prüft:
+- ✓ **Erforderliche Felder**: `type`, `title`, `properties`, `views`, `rows`
+- ✓ **JSON Schema (draft-07)**: Struktur und Datentypen
+- ✓ **Datenqualität**: Task-IDs, Status, Prioritäten, Tags
+- ✓ **Emoji-Kompatibilität**: Problematische Unicode-Zeichen
+- ✓ **Konsistenz**: Workflow-Status, Duplikate, Farben
 
 ### Beispiel-Abfragen
 
@@ -73,7 +103,46 @@ cut -d, -f1 tasks.csv | tail -n +2 | sort | uniq -c
 
 ## 🎯 Task-Format
 
-### JSON-Struktur
+### Notion Database Format
+
+Das Template folgt dem Notion Database Export Format und kann direkt in Notion importiert werden:
+
+```json
+{
+  "type": "database",
+  "title": "YONI Launch Task Management",
+  "properties": {
+    "Task ID": { "type": "title" },
+    "Title": { "type": "rich_text" },
+    "Status": { 
+      "type": "status",
+      "status": {
+        "options": [
+          { "name": "pending", "color": "gray" },
+          { "name": "in_progress", "color": "blue" },
+          ...
+        ]
+      }
+    },
+    ...
+  },
+  "views": [
+    { "name": "All Tasks", "type": "table" },
+    { "name": "By Pillar", "type": "board" }
+  ],
+  "rows": [
+    {
+      "properties": {
+        "Task ID": { "title": [{ "text": { "content": "BUILD-001" } }] },
+        "Title": { "rich_text": [{ "text": { "content": "..." } }] },
+        ...
+      }
+    }
+  ]
+}
+```
+
+### Legacy JSON-Struktur (für Backward Compatibility)
 
 Jeder Task hat folgende Felder:
 

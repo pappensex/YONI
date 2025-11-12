@@ -1,8 +1,1029 @@
 {
+  "type": "database",
   "title": "YONI Launch Task Management",
   "version": "1.0",
   "created": "2025-11-12",
   "description": "Task management template for YONI app launch organized by pillars: BUILD, PAYMENT, and YOUTUBE",
+  "properties": {
+    "Task ID": {
+      "type": "title"
+    },
+    "Title": {
+      "type": "rich_text"
+    },
+    "Description": {
+      "type": "rich_text"
+    },
+    "Status": {
+      "type": "status",
+      "status": {
+        "options": [
+          {
+            "name": "pending",
+            "color": "gray"
+          },
+          {
+            "name": "in_progress",
+            "color": "blue"
+          },
+          {
+            "name": "review",
+            "color": "yellow"
+          },
+          {
+            "name": "completed",
+            "color": "green"
+          },
+          {
+            "name": "blocked",
+            "color": "red"
+          }
+        ]
+      }
+    },
+    "Priority": {
+      "type": "select",
+      "select": {
+        "options": [
+          {
+            "name": "low",
+            "color": "gray"
+          },
+          {
+            "name": "medium",
+            "color": "blue"
+          },
+          {
+            "name": "high",
+            "color": "yellow"
+          },
+          {
+            "name": "critical",
+            "color": "red"
+          }
+        ]
+      }
+    },
+    "Tags": {
+      "type": "multi_select",
+      "multi_select": {
+        "options": [
+          {
+            "name": "stripe",
+            "color": "purple"
+          },
+          {
+            "name": "backend",
+            "color": "blue"
+          },
+          {
+            "name": "webhook",
+            "color": "green"
+          },
+          {
+            "name": "deployment",
+            "color": "orange"
+          },
+          {
+            "name": "vercel",
+            "color": "pink"
+          },
+          {
+            "name": "ci-cd",
+            "color": "brown"
+          },
+          {
+            "name": "security",
+            "color": "red"
+          },
+          {
+            "name": "compliance",
+            "color": "yellow"
+          },
+          {
+            "name": "accessibility",
+            "color": "green"
+          },
+          {
+            "name": "testing",
+            "color": "gray"
+          },
+          {
+            "name": "payment",
+            "color": "purple"
+          },
+          {
+            "name": "instant-payment",
+            "color": "pink"
+          },
+          {
+            "name": "checkout",
+            "color": "blue"
+          },
+          {
+            "name": "subscription",
+            "color": "orange"
+          },
+          {
+            "name": "gdpr",
+            "color": "red"
+          },
+          {
+            "name": "legal",
+            "color": "brown"
+          },
+          {
+            "name": "business",
+            "color": "yellow"
+          },
+          {
+            "name": "pricing",
+            "color": "green"
+          },
+          {
+            "name": "video",
+            "color": "purple"
+          },
+          {
+            "name": "marketing",
+            "color": "pink"
+          },
+          {
+            "name": "content",
+            "color": "blue"
+          },
+          {
+            "name": "community",
+            "color": "orange"
+          },
+          {
+            "name": "social-media",
+            "color": "pink"
+          },
+          {
+            "name": "launch",
+            "color": "red"
+          }
+        ]
+      }
+    },
+    "Pillar": {
+      "type": "select",
+      "select": {
+        "options": [
+          {
+            "name": "BUILD",
+            "color": "purple"
+          },
+          {
+            "name": "PAYMENT",
+            "color": "yellow"
+          },
+          {
+            "name": "YOUTUBE",
+            "color": "red"
+          }
+        ]
+      }
+    },
+    "Example": {
+      "type": "rich_text"
+    }
+  },
+  "views": [
+    {
+      "name": "All Tasks",
+      "type": "table"
+    },
+    {
+      "name": "By Pillar",
+      "type": "board",
+      "filter": {},
+      "sort": []
+    },
+    {
+      "name": "By Status",
+      "type": "board",
+      "filter": {},
+      "sort": []
+    },
+    {
+      "name": "High Priority",
+      "type": "list",
+      "filter": {
+        "property": "Priority",
+        "select": {
+          "equals": "high"
+        }
+      }
+    }
+  ],
+  "rows": [
+    {
+      "properties": {
+        "Task ID": {
+          "title": [
+            {
+              "text": {
+                "content": "BUILD-001"
+              }
+            }
+          ]
+        },
+        "Title": {
+          "rich_text": [
+            {
+              "text": {
+                "content": "Stripe Webhook fixen"
+              }
+            }
+          ]
+        },
+        "Description": {
+          "rich_text": [
+            {
+              "text": {
+                "content": "Fix Stripe webhook integration for payment processing"
+              }
+            }
+          ]
+        },
+        "Status": {
+          "status": {
+            "name": "in_progress"
+          }
+        },
+        "Priority": {
+          "select": {
+            "name": "high"
+          }
+        },
+        "Tags": {
+          "multi_select": [
+            {
+              "name": "stripe"
+            },
+            {
+              "name": "backend"
+            },
+            {
+              "name": "webhook"
+            }
+          ]
+        },
+        "Pillar": {
+          "select": {
+            "name": "BUILD"
+          }
+        },
+        "Example": {
+          "rich_text": [
+            {
+              "text": {
+                "content": "Stripe Webhook fixen"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "properties": {
+        "Task ID": {
+          "title": [
+            {
+              "text": {
+                "content": "BUILD-002"
+              }
+            }
+          ]
+        },
+        "Title": {
+          "rich_text": [
+            {
+              "text": {
+                "content": "Deploy testen"
+              }
+            }
+          ]
+        },
+        "Description": {
+          "rich_text": [
+            {
+              "text": {
+                "content": "Test deployment pipeline on Vercel"
+              }
+            }
+          ]
+        },
+        "Status": {
+          "status": {
+            "name": "pending"
+          }
+        },
+        "Priority": {
+          "select": {
+            "name": "high"
+          }
+        },
+        "Tags": {
+          "multi_select": [
+            {
+              "name": "deployment"
+            },
+            {
+              "name": "vercel"
+            },
+            {
+              "name": "ci-cd"
+            }
+          ]
+        },
+        "Pillar": {
+          "select": {
+            "name": "BUILD"
+          }
+        },
+        "Example": {
+          "rich_text": [
+            {
+              "text": {
+                "content": "Deploy testen"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "properties": {
+        "Task ID": {
+          "title": [
+            {
+              "text": {
+                "content": "BUILD-003"
+              }
+            }
+          ]
+        },
+        "Title": {
+          "rich_text": [
+            {
+              "text": {
+                "content": "Security Checks implementieren"
+              }
+            }
+          ]
+        },
+        "Description": {
+          "rich_text": [
+            {
+              "text": {
+                "content": "Implement CSP, HTTPS, and RBAC security measures"
+              }
+            }
+          ]
+        },
+        "Status": {
+          "status": {
+            "name": "pending"
+          }
+        },
+        "Priority": {
+          "select": {
+            "name": "high"
+          }
+        },
+        "Tags": {
+          "multi_select": [
+            {
+              "name": "security"
+            },
+            {
+              "name": "compliance"
+            }
+          ]
+        },
+        "Pillar": {
+          "select": {
+            "name": "BUILD"
+          }
+        },
+        "Example": {
+          "rich_text": [
+            {
+              "text": {
+                "content": "Security Checks implementieren"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "properties": {
+        "Task ID": {
+          "title": [
+            {
+              "text": {
+                "content": "BUILD-004"
+              }
+            }
+          ]
+        },
+        "Title": {
+          "rich_text": [
+            {
+              "text": {
+                "content": "A11y Testing einrichten"
+              }
+            }
+          ]
+        },
+        "Description": {
+          "rich_text": [
+            {
+              "text": {
+                "content": "Set up accessibility testing with axe-core"
+              }
+            }
+          ]
+        },
+        "Status": {
+          "status": {
+            "name": "pending"
+          }
+        },
+        "Priority": {
+          "select": {
+            "name": "medium"
+          }
+        },
+        "Tags": {
+          "multi_select": [
+            {
+              "name": "accessibility"
+            },
+            {
+              "name": "testing"
+            }
+          ]
+        },
+        "Pillar": {
+          "select": {
+            "name": "BUILD"
+          }
+        },
+        "Example": {
+          "rich_text": [
+            {
+              "text": {
+                "content": "A11y Testing einrichten"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "properties": {
+        "Task ID": {
+          "title": [
+            {
+              "text": {
+                "content": "PAYMENT-001"
+              }
+            }
+          ]
+        },
+        "Title": {
+          "rich_text": [
+            {
+              "text": {
+                "content": "Instant Payment aktivieren"
+              }
+            }
+          ]
+        },
+        "Description": {
+          "rich_text": [
+            {
+              "text": {
+                "content": "Enable instant payment functionality in Stripe"
+              }
+            }
+          ]
+        },
+        "Status": {
+          "status": {
+            "name": "pending"
+          }
+        },
+        "Priority": {
+          "select": {
+            "name": "high"
+          }
+        },
+        "Tags": {
+          "multi_select": [
+            {
+              "name": "stripe"
+            },
+            {
+              "name": "payment"
+            },
+            {
+              "name": "instant-payment"
+            }
+          ]
+        },
+        "Pillar": {
+          "select": {
+            "name": "PAYMENT"
+          }
+        },
+        "Example": {
+          "rich_text": [
+            {
+              "text": {
+                "content": "Instant Payment aktivieren"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "properties": {
+        "Task ID": {
+          "title": [
+            {
+              "text": {
+                "content": "PAYMENT-002"
+              }
+            }
+          ]
+        },
+        "Title": {
+          "rich_text": [
+            {
+              "text": {
+                "content": "Checkout-Link einrichten"
+              }
+            }
+          ]
+        },
+        "Description": {
+          "rich_text": [
+            {
+              "text": {
+                "content": "Set up Stripe Checkout link for subscriptions"
+              }
+            }
+          ]
+        },
+        "Status": {
+          "status": {
+            "name": "pending"
+          }
+        },
+        "Priority": {
+          "select": {
+            "name": "high"
+          }
+        },
+        "Tags": {
+          "multi_select": [
+            {
+              "name": "stripe"
+            },
+            {
+              "name": "checkout"
+            },
+            {
+              "name": "subscription"
+            }
+          ]
+        },
+        "Pillar": {
+          "select": {
+            "name": "PAYMENT"
+          }
+        },
+        "Example": {
+          "rich_text": [
+            {
+              "text": {
+                "content": "Checkout-Link einrichten"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "properties": {
+        "Task ID": {
+          "title": [
+            {
+              "text": {
+                "content": "PAYMENT-003"
+              }
+            }
+          ]
+        },
+        "Title": {
+          "rich_text": [
+            {
+              "text": {
+                "content": "DSGVO-Compliance prüfen"
+              }
+            }
+          ]
+        },
+        "Description": {
+          "rich_text": [
+            {
+              "text": {
+                "content": "Verify GDPR compliance for payment processing"
+              }
+            }
+          ]
+        },
+        "Status": {
+          "status": {
+            "name": "pending"
+          }
+        },
+        "Priority": {
+          "select": {
+            "name": "high"
+          }
+        },
+        "Tags": {
+          "multi_select": [
+            {
+              "name": "compliance"
+            },
+            {
+              "name": "gdpr"
+            },
+            {
+              "name": "legal"
+            }
+          ]
+        },
+        "Pillar": {
+          "select": {
+            "name": "PAYMENT"
+          }
+        },
+        "Example": {
+          "rich_text": [
+            {
+              "text": {
+                "content": "DSGVO-Compliance prüfen"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "properties": {
+        "Task ID": {
+          "title": [
+            {
+              "text": {
+                "content": "PAYMENT-004"
+              }
+            }
+          ]
+        },
+        "Title": {
+          "rich_text": [
+            {
+              "text": {
+                "content": "Preismodell definieren"
+              }
+            }
+          ]
+        },
+        "Description": {
+          "rich_text": [
+            {
+              "text": {
+                "content": "Define pricing tiers and subscription models"
+              }
+            }
+          ]
+        },
+        "Status": {
+          "status": {
+            "name": "pending"
+          }
+        },
+        "Priority": {
+          "select": {
+            "name": "medium"
+          }
+        },
+        "Tags": {
+          "multi_select": [
+            {
+              "name": "business"
+            },
+            {
+              "name": "pricing"
+            }
+          ]
+        },
+        "Pillar": {
+          "select": {
+            "name": "PAYMENT"
+          }
+        },
+        "Example": {
+          "rich_text": [
+            {
+              "text": {
+                "content": "Preismodell definieren"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "properties": {
+        "Task ID": {
+          "title": [
+            {
+              "text": {
+                "content": "YOUTUBE-001"
+              }
+            }
+          ]
+        },
+        "Title": {
+          "rich_text": [
+            {
+              "text": {
+                "content": "Short drehen"
+              }
+            }
+          ]
+        },
+        "Description": {
+          "rich_text": [
+            {
+              "text": {
+                "content": "Create YouTube Short for product launch"
+              }
+            }
+          ]
+        },
+        "Status": {
+          "status": {
+            "name": "pending"
+          }
+        },
+        "Priority": {
+          "select": {
+            "name": "high"
+          }
+        },
+        "Tags": {
+          "multi_select": [
+            {
+              "name": "video"
+            },
+            {
+              "name": "marketing"
+            },
+            {
+              "name": "content"
+            }
+          ]
+        },
+        "Pillar": {
+          "select": {
+            "name": "YOUTUBE"
+          }
+        },
+        "Example": {
+          "rich_text": [
+            {
+              "text": {
+                "content": "Short drehen"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "properties": {
+        "Task ID": {
+          "title": [
+            {
+              "text": {
+                "content": "YOUTUBE-002"
+              }
+            }
+          ]
+        },
+        "Title": {
+          "rich_text": [
+            {
+              "text": {
+                "content": "Community-Post mit Stripe-Link"
+              }
+            }
+          ]
+        },
+        "Description": {
+          "rich_text": [
+            {
+              "text": {
+                "content": "Create community post with Stripe payment link"
+              }
+            }
+          ]
+        },
+        "Status": {
+          "status": {
+            "name": "pending"
+          }
+        },
+        "Priority": {
+          "select": {
+            "name": "high"
+          }
+        },
+        "Tags": {
+          "multi_select": [
+            {
+              "name": "community"
+            },
+            {
+              "name": "marketing"
+            },
+            {
+              "name": "stripe"
+            }
+          ]
+        },
+        "Pillar": {
+          "select": {
+            "name": "YOUTUBE"
+          }
+        },
+        "Example": {
+          "rich_text": [
+            {
+              "text": {
+                "content": "Community-Post mit Stripe-Link"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "properties": {
+        "Task ID": {
+          "title": [
+            {
+              "text": {
+                "content": "YOUTUBE-003"
+              }
+            }
+          ]
+        },
+        "Title": {
+          "rich_text": [
+            {
+              "text": {
+                "content": "Launch-Video produzieren"
+              }
+            }
+          ]
+        },
+        "Description": {
+          "rich_text": [
+            {
+              "text": {
+                "content": "Produce main launch video explaining YONI platform"
+              }
+            }
+          ]
+        },
+        "Status": {
+          "status": {
+            "name": "pending"
+          }
+        },
+        "Priority": {
+          "select": {
+            "name": "medium"
+          }
+        },
+        "Tags": {
+          "multi_select": [
+            {
+              "name": "video"
+            },
+            {
+              "name": "launch"
+            },
+            {
+              "name": "content"
+            }
+          ]
+        },
+        "Pillar": {
+          "select": {
+            "name": "YOUTUBE"
+          }
+        },
+        "Example": {
+          "rich_text": [
+            {
+              "text": {
+                "content": "Launch-Video produzieren"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "properties": {
+        "Task ID": {
+          "title": [
+            {
+              "text": {
+                "content": "YOUTUBE-004"
+              }
+            }
+          ]
+        },
+        "Title": {
+          "rich_text": [
+            {
+              "text": {
+                "content": "Social Media Kampagne"
+              }
+            }
+          ]
+        },
+        "Description": {
+          "rich_text": [
+            {
+              "text": {
+                "content": "Plan and execute social media campaign"
+              }
+            }
+          ]
+        },
+        "Status": {
+          "status": {
+            "name": "pending"
+          }
+        },
+        "Priority": {
+          "select": {
+            "name": "medium"
+          }
+        },
+        "Tags": {
+          "multi_select": [
+            {
+              "name": "social-media"
+            },
+            {
+              "name": "marketing"
+            }
+          ]
+        },
+        "Pillar": {
+          "select": {
+            "name": "YOUTUBE"
+          }
+        },
+        "Example": {
+          "rich_text": [
+            {
+              "text": {
+                "content": "Social Media Kampagne"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
   "pillars": [
     {
       "name": "BUILD",

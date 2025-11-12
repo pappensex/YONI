@@ -1,0 +1,253 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://github.com/pappensex/YONI-app/schemas/notion-template.json",
+  "title": "YONI Notion Template Schema",
+  "description": "JSON Schema for YONI Launch Task Management Notion template",
+  "type": "object",
+  "required": [
+    "type",
+    "title",
+    "properties",
+    "views",
+    "rows"
+  ],
+  "properties": {
+    "type": {
+      "type": "string",
+      "description": "The type of Notion database",
+      "enum": ["database"]
+    },
+    "title": {
+      "type": "string",
+      "description": "The title of the database",
+      "minLength": 1
+    },
+    "version": {
+      "type": "string",
+      "description": "Version of the template",
+      "pattern": "^[0-9]+\\.[0-9]+$"
+    },
+    "created": {
+      "type": "string",
+      "description": "Creation date in ISO format",
+      "format": "date"
+    },
+    "description": {
+      "type": "string",
+      "description": "Description of the database"
+    },
+    "properties": {
+      "type": "object",
+      "description": "Notion database properties (columns)",
+      "additionalProperties": {
+        "type": "object",
+        "required": ["type"],
+        "properties": {
+          "type": {
+            "type": "string",
+            "enum": [
+              "title",
+              "rich_text",
+              "select",
+              "multi_select",
+              "status",
+              "date",
+              "checkbox",
+              "number",
+              "url",
+              "email",
+              "phone_number",
+              "formula",
+              "relation",
+              "rollup",
+              "created_time",
+              "created_by",
+              "last_edited_time",
+              "last_edited_by"
+            ]
+          },
+          "select": {
+            "type": "object",
+            "properties": {
+              "options": {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "required": ["name"],
+                  "properties": {
+                    "name": {
+                      "type": "string"
+                    },
+                    "color": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "multi_select": {
+            "type": "object",
+            "properties": {
+              "options": {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "required": ["name"],
+                  "properties": {
+                    "name": {
+                      "type": "string"
+                    },
+                    "color": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "status": {
+            "type": "object",
+            "properties": {
+              "options": {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "required": ["name"],
+                  "properties": {
+                    "name": {
+                      "type": "string"
+                    },
+                    "color": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "views": {
+      "type": "array",
+      "description": "Database views configuration",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "required": ["name", "type"],
+        "properties": {
+          "name": {
+            "type": "string"
+          },
+          "type": {
+            "type": "string",
+            "enum": ["table", "board", "timeline", "calendar", "gallery", "list"]
+          },
+          "filter": {
+            "type": "object"
+          },
+          "sort": {
+            "type": "array"
+          }
+        }
+      }
+    },
+    "rows": {
+      "type": "array",
+      "description": "Database rows (pages)",
+      "items": {
+        "type": "object",
+        "required": ["properties"],
+        "properties": {
+          "properties": {
+            "type": "object"
+          }
+        }
+      }
+    },
+    "pillars": {
+      "type": "array",
+      "description": "Project pillars (legacy format for backward compatibility)",
+      "items": {
+        "type": "object",
+        "required": ["name", "focus", "tasks"],
+        "properties": {
+          "name": {
+            "type": "string",
+            "minLength": 1
+          },
+          "focus": {
+            "type": "string"
+          },
+          "color": {
+            "type": "string",
+            "pattern": "^#[0-9A-Fa-f]{6}$"
+          },
+          "tasks": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "required": ["id", "title", "status", "priority"],
+              "properties": {
+                "id": {
+                  "type": "string",
+                  "pattern": "^[A-Z]+-[0-9]{3}$"
+                },
+                "title": {
+                  "type": "string",
+                  "minLength": 1
+                },
+                "description": {
+                  "type": "string"
+                },
+                "status": {
+                  "type": "string",
+                  "enum": ["pending", "in_progress", "review", "completed", "blocked"]
+                },
+                "priority": {
+                  "type": "string",
+                  "enum": ["low", "medium", "high", "critical"]
+                },
+                "example": {
+                  "type": "string"
+                },
+                "tags": {
+                  "type": "array",
+                  "items": {
+                    "type": "string"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "workflow": {
+      "type": "object",
+      "description": "Workflow configuration",
+      "properties": {
+        "statuses": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "priorities": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "notes": {
+      "type": "array",
+      "description": "Additional notes and instructions",
+      "items": {
+        "type": "string"
+      }
+    }
+  }
+}
