@@ -3,6 +3,7 @@ import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Progress } from "@/components/ui/progress";
 import { CheckCircle, AlertTriangle, XCircle, RefreshCw } from "lucide-react";
+import { calculateSubtasksDone } from "./notionFormulas";
 
 export default function YoniDeployControlCenter() {
   const [statusData, setStatusData] = useState([]);
@@ -20,9 +21,16 @@ export default function YoniDeployControlCenter() {
       const text = await res.text();
       const parsed = parseStatusMarkdown(text);
       setStatusData(parsed);
+      
+      // Calculate subtasks done using Notion-style formula
       const done = parsed.filter((i) => i.status === "✅").length;
       const total = parsed.length;
-      setProgress(Math.round((done / total) * 100));
+      
+      // Apply toNumber(format(round(prop("Subtasks Done")))) formula
+      const subtasksData = { "Subtasks Done": (done / total) * 100 };
+      const calculatedProgress = calculateSubtasksDone(subtasksData);
+      
+      setProgress(calculatedProgress);
     } catch (err) {
       console.error("Status-Load-Error", err);
     }
