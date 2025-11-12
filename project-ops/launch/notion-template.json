@@ -1,0 +1,141 @@
+{
+  "title": "YONI Launch Task Management",
+  "version": "1.0",
+  "created": "2025-11-12",
+  "description": "Task management template for YONI app launch organized by pillars: BUILD, PAYMENT, and YOUTUBE",
+  "pillars": [
+    {
+      "name": "BUILD",
+      "focus": "Technisches Fundament",
+      "color": "#9966CC",
+      "tasks": [
+        {
+          "id": "BUILD-001",
+          "title": "Stripe Webhook fixen",
+          "description": "Fix Stripe webhook integration for payment processing",
+          "status": "in_progress",
+          "priority": "high",
+          "example": "Stripe Webhook fixen",
+          "tags": ["stripe", "backend", "webhook"]
+        },
+        {
+          "id": "BUILD-002",
+          "title": "Deploy testen",
+          "description": "Test deployment pipeline on Vercel",
+          "status": "pending",
+          "priority": "high",
+          "example": "Deploy testen",
+          "tags": ["deployment", "vercel", "ci-cd"]
+        },
+        {
+          "id": "BUILD-003",
+          "title": "Security Checks implementieren",
+          "description": "Implement CSP, HTTPS, and RBAC security measures",
+          "status": "pending",
+          "priority": "high",
+          "tags": ["security", "compliance"]
+        },
+        {
+          "id": "BUILD-004",
+          "title": "A11y Testing einrichten",
+          "description": "Set up accessibility testing with axe-core",
+          "status": "pending",
+          "priority": "medium",
+          "tags": ["accessibility", "testing"]
+        }
+      ]
+    },
+    {
+      "name": "PAYMENT",
+      "focus": "Monetarisierung & Compliance",
+      "color": "#FFD700",
+      "tasks": [
+        {
+          "id": "PAYMENT-001",
+          "title": "Instant Payment aktivieren",
+          "description": "Enable instant payment functionality in Stripe",
+          "status": "pending",
+          "priority": "high",
+          "example": "Instant Payment aktivieren",
+          "tags": ["stripe", "payment", "instant-payment"]
+        },
+        {
+          "id": "PAYMENT-002",
+          "title": "Checkout-Link einrichten",
+          "description": "Set up Stripe Checkout link for subscriptions",
+          "status": "pending",
+          "priority": "high",
+          "example": "Checkout-Link einrichten",
+          "tags": ["stripe", "checkout", "subscription"]
+        },
+        {
+          "id": "PAYMENT-003",
+          "title": "DSGVO-Compliance prüfen",
+          "description": "Verify GDPR compliance for payment processing",
+          "status": "pending",
+          "priority": "high",
+          "tags": ["compliance", "gdpr", "legal"]
+        },
+        {
+          "id": "PAYMENT-004",
+          "title": "Preismodell definieren",
+          "description": "Define pricing tiers and subscription models",
+          "status": "pending",
+          "priority": "medium",
+          "tags": ["business", "pricing"]
+        }
+      ]
+    },
+    {
+      "name": "YOUTUBE",
+      "focus": "Reichweite & Conversion",
+      "color": "#FF0000",
+      "tasks": [
+        {
+          "id": "YOUTUBE-001",
+          "title": "Short drehen",
+          "description": "Create YouTube Short for product launch",
+          "status": "pending",
+          "priority": "high",
+          "example": "Short drehen",
+          "tags": ["video", "marketing", "content"]
+        },
+        {
+          "id": "YOUTUBE-002",
+          "title": "Community-Post mit Stripe-Link",
+          "description": "Create community post with Stripe payment link",
+          "status": "pending",
+          "priority": "high",
+          "example": "Community-Post mit Stripe-Link",
+          "tags": ["community", "marketing", "stripe"]
+        },
+        {
+          "id": "YOUTUBE-003",
+          "title": "Launch-Video produzieren",
+          "description": "Produce main launch video explaining YONI platform",
+          "status": "pending",
+          "priority": "medium",
+          "tags": ["video", "launch", "content"]
+        },
+        {
+          "id": "YOUTUBE-004",
+          "title": "Social Media Kampagne",
+          "description": "Plan and execute social media campaign",
+          "status": "pending",
+          "priority": "medium",
+          "tags": ["social-media", "marketing"]
+        }
+      ]
+    }
+  ],
+  "workflow": {
+    "statuses": ["pending", "in_progress", "review", "completed", "blocked"],
+    "priorities": ["low", "medium", "high", "critical"]
+  },
+  "notes": [
+    "Tasks should be updated regularly",
+    "Use git to track changes to task status",
+    "Link tasks to GitHub issues when appropriate",
+    "Follow YONI's Überhochglitzer design principles in all deliverables"
+  ]
+}
