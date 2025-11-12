@@ -8,6 +8,7 @@ export default function Home() {
   const [autoTranslate, setAutoTranslate] = useState(true)
   const [feed, setFeed] = useState<Array<{ id: number; agent: string; text: string; isFusion?: boolean }>>([])
   const [envMessage, setEnvMessage] = useState('')
+  const [isLoading, setIsLoading] = useState(false)
 
   // Check environment on mount
   useState(() => {
@@ -37,30 +38,51 @@ export default function Home() {
     alert('iPhone: Safari → Teilen → „Zum Home‑Bildschirm".')
   }
 
-  const handleAsk = () => {
+  const handleAsk = async () => {
     const q = question.trim()
-    if (!q) return
+    if (!q || isLoading) return
 
-    const answers = [
-      { a: 'GPT‑5 Pro', t: `Antwort auf „${q}" — präzise, strukturiert, mit Handlungsempfehlung.` },
-      { a: 'CHIBot‑Alpha', t: `Antwort auf „${q}" — intuitiv, visionär, poetisch‑kantig.` },
-      { a: 'CHIBot‑Beta', t: `Antwort auf „${q}" — technisch, datengetrieben, scharf.` },
-      { a: 'CHIBot‑Omega', t: `Antwort auf „${q}" — synthetisch, meta, systemisch.` },
-    ]
+    setIsLoading(true)
+    
+    try {
+      // Call the ChatGPT API
+      const response = await fetch('/api/chat', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          question: q,
+          mode: mode,
+        }),
+      })
 
-    const fuse = (arr: typeof answers, m: string) => {
-      if (m === 'Consensus') return 'Konsens: ' + arr.map(x => x.t).join(' | ')
-      if (m === 'Contrast') return 'Kontrast: ' + arr.map(x => x.t).join(' ⇄ ')
-      return 'Chain: ' + arr.map((x, i) => `[${i + 1}] ${x.t}`).join(' → ')
+      const data = await response.json()
+
+      if (!response.ok) {
+        throw new Error(data.error || 'API request failed')
+      }
+
+      // Add the response to the feed
+      const newItem = {
+        id: Date.now(),
+        agent: `ChatGPT (${mode})`,
+        text: data.response,
+      }
+
+      setFeed([newItem, ...feed])
+      setQuestion('') // Clear the question after successful submission
+    } catch (error: any) {
+      // Add error to feed
+      const errorItem = {
+        id: Date.now(),
+        agent: 'Error',
+        text: `Fehler: ${error.message}. Bitte stelle sicher, dass der OPENAI_API_KEY konfiguriert ist.`,
+      }
+      setFeed([errorItem, ...feed])
+    } finally {
+      setIsLoading(false)
     }
-
-    const fused = fuse(answers, mode)
-    const newFeed = [
-      { id: Date.now(), agent: 'Fusion', text: fused, isFusion: true },
-      ...answers.map((x, i) => ({ id: Date.now() + i + 1, agent: x.a, text: x.t }))
-    ]
-
-    setFeed([...newFeed, ...feed])
   }
 
   return (
@@ -100,7 +122,9 @@ export default function Home() {
           placeholder="Frag dein Multi‑Kollektiv …"
         />
         <div className="row">
-          <button onClick={handleAsk}>Fusion starten</button>
+          <button onClick={handleAsk} disabled={isLoading}>
+            {isLoading ? 'ChatGPT denkt nach...' : 'Frage an ChatGPT'}
+          </button>
         </div>
         <div className="feed">
           {feed.map((item) => (
