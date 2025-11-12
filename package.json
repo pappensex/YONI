@@ -8,6 +8,7 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
+    "fix:content": "node project-ops/launch/fix-content.js",
     "validate:notion": "node project-ops/launch/validate-notion-template.js",
     "test:notion": "node project-ops/launch/test-validate.js"
   },
