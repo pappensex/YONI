@@ -15,34 +15,58 @@ export function parseStatusMarkdown(text: string): LaunchTask[] {
   const tasks: LaunchTask[] = [];
   let currentTask: LaunchTask | null = null;
   let parsingSubtasks = false;
+  let inSubtasksSection = false;
 
   for (let i = 0; i < lines.length; i++) {
     const line = lines[i].trim();
 
-    // Parse main tasks table
-    if (line.startsWith("|") && !parsingSubtasks) {
+    // Check if we're entering the Subtasks section
+    if (line.startsWith("## Subtasks")) {
+      inSubtasksSection = true;
+      continue;
+    }
+
+    // Check if we're leaving the Subtasks section (entering a new ## section)
+    if (inSubtasksSection && line.startsWith("##") && !line.includes("Subtasks")) {
+      inSubtasksSection = false;
+      parsingSubtasks = false;
+      currentTask = null;
+      continue;
+    }
+
+    // Parse main tasks table (only before Subtasks section)
+    if (line.startsWith("|") && !parsingSubtasks && !inSubtasksSection) {
       // Skip header and separator rows
       if (line.includes("Task") || line.includes("---")) continue;
 
       const cols = line.split("|").map((c) => c.trim());
-      if (cols.length >= 5) {
-        const task: LaunchTask = {
-          id: cols[1],
-          task: cols[2],
-          status: cols[3] as TaskStatus,
-          comment: cols[4],
-          subtasks: [],
-        };
-        tasks.push(task);
+      // Table format: | Task | Status | Description | Progress % |
+      // cols[0] is empty, cols[1] is Task, cols[2] is Status, cols[3] is Description, cols[4] is Progress %
+      if (cols.length >= 4 && cols[1]) {
+        // Extract task ID from the Task column (e.g., "1. Repository Setup" -> "1.")
+        const taskMatch = cols[1].match(/^(\d+\.)/);
+        if (taskMatch) {
+          const taskId = taskMatch[1];
+          const taskName = cols[1].replace(/^\d+\.\s*/, ''); // Remove ID prefix from task name
+          
+          const task: LaunchTask = {
+            id: taskId,
+            task: taskName,
+            status: cols[2] as TaskStatus,
+            comment: cols[3],
+            subtasks: [],
+          };
+          tasks.push(task);
+        }
       }
     }
 
     // Detect subtask section header (e.g., "### Task 6: Email Notifications")
-    if (line.startsWith("### Task ")) {
+    if (line.startsWith("### Task ") && inSubtasksSection) {
       parsingSubtasks = true;
       const taskIdMatch = line.match(/### Task (\d+):/);
       if (taskIdMatch) {
-        const taskId = taskIdMatch[1];
+        const taskId = taskIdMatch[1] + ".";
         currentTask = tasks.find((t) => t.id === taskId) || null;
       }
     }
@@ -64,8 +88,8 @@ export function parseStatusMarkdown(text: string): LaunchTask[] {
       }
     }
 
-    // End of subtask section (empty line or new section)
-    if (parsingSubtasks && (line === "" || line.startsWith("##"))) {
+    // End of current subtask table (empty line signals end)
+    if (parsingSubtasks && line === "") {
       parsingSubtasks = false;
       currentTask = null;
     }
