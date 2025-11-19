@@ -66,6 +66,10 @@ Die App ist dann verfügbar unter: **http://localhost:3000**
 
 Siehe [YONI_Local_Run_Guide.md](YONI_Local_Run_Guide.md) für Details.
 
+### iPhone-Demo / Testversand
+- 📱 **Homescreen-Installation:** Safari → Teilen → „Zum Home-Bildschirm".
+- 📤 **Preview verschicken:** Anleitung siehe [IOS_DEMO_GUIDE.md](IOS_DEMO_GUIDE.md).
+
 ### Deployment
 
 Siehe **[DEPLOYMENT.md](DEPLOYMENT.md)** für vollständige Deployment-Anleitung:
