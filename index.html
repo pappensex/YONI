@@ -19,6 +19,9 @@
     textarea,input,select{background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.1);color:var(--text);border-radius:12px;padding:10px;width:100%}
     .feed{margin-top:10px;display:grid;gap:8px}
     .item{background:rgba(255,255,255,.05);padding:10px;border-radius:12px}
+    .preview{margin-top:12px;display:flex;flex-direction:column;gap:8px}
+    .preview img{width:100%;border-radius:12px;border:1px solid rgba(255,255,255,.1);object-fit:cover;display:none}
+    .status{font-size:14px}
   </style>
 </head>
 <body>
@@ -44,6 +47,22 @@
         <button id="ask">Fusion starten</button>
       </div>
       <div id="out" class="feed"></div>
+    </div>
+
+    <div class="card" style="margin-top:16px">
+      <h2>Live Love</h2>
+      <div class="row">
+        <select id="scene">
+          <option value="AnkhOfLove_Day">Ankh of Love – Day</option>
+          <option value="AnkhOfLove_Night">Ankh of Love – Night</option>
+          <option value="EnergyFusion_Black">Energy Fusion – Black</option>
+        </select>
+        <button id="live">Live Love starten</button>
+      </div>
+      <div class="preview">
+        <div id="live-status" class="muted status"></div>
+        <img id="live-img" alt="Live Love Vorschau" />
+      </div>
     </div>
   </div>
 
@@ -77,6 +96,55 @@
     const divF = document.createElement('div'); divF.className='item'; divF.innerHTML = `<b>Fusion</b>: ${auto?fused:fused}`
     out.prepend(divF)
     answers.forEach(x=>{ const d=document.createElement('div'); d.className='item'; d.innerHTML = `<b>${x.a}</b>: ${auto?x.t:x.t}`; out.prepend(d) })
+  }
+
+  // Live Love trigger
+  const liveBtn = document.getElementById('live')
+  const liveScene = document.getElementById('scene')
+  const liveStatus = document.getElementById('live-status')
+  const liveImg = document.getElementById('live-img')
+  if (liveStatus) liveStatus.textContent = 'Wähle eine Szene und starte die Fusion.'
+
+  async function generateScene(scene) {
+    const res = await fetch('/api/generate', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ scene })
+    })
+    if (!res.ok) {
+      const text = await res.text()
+      throw new Error(text || `HTTP ${res.status}`)
+    }
+    return await res.json()
+  }
+
+  if (liveBtn) {
+    liveBtn.onclick = async () => {
+      const scene = liveScene.value
+      liveBtn.disabled = true
+      liveStatus.textContent = 'Fusion läuft …'
+      liveImg.style.display = 'none'
+      try {
+        const data = await generateScene(scene)
+        if (data.status !== 'succeeded') {
+          throw new Error(data.error || `Status ${data.status}`)
+        }
+        const url = Array.isArray(data.output) ? data.output[0] : null
+        if (url) {
+          liveImg.src = url
+          liveImg.alt = `Live Love Szene ${scene}`
+          liveImg.style.display = 'block'
+          liveStatus.textContent = 'Fusion abgeschlossen.'
+        } else {
+          liveStatus.textContent = 'Keine Ausgabe erhalten.'
+        }
+      } catch (err) {
+        console.error('Live Love Fehler', err)
+        liveStatus.textContent = `Fehler: ${err.message}`
+      } finally {
+        liveBtn.disabled = false
+      }
+    }
   }
 </script>
 </body>
