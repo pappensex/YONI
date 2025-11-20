@@ -10,13 +10,13 @@ export async function POST(req: NextRequest) {
 
     if (!stripeSecretKey) {
       return new NextResponse('Missing STRIPE_SECRET_KEY environment variable.', {
-        status: 500,
+        status: 503,
       });
     }
 
     if (!appUrl) {
       return new NextResponse('Missing NEXT_PUBLIC_APP_URL environment variable.', {
-        status: 500,
+        status: 503,
       });
     }
 
