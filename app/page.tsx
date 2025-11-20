@@ -24,6 +24,7 @@ export default function Home() {
   const [envMessage, setEnvMessage] = useState('')
   const [isLoading, setIsLoading] = useState(false)
   const [ageVerified, setAgeVerified] = useState(false)
+  const [copiedId, setCopiedId] = useState<number | null>(null)
 
   const handleAgeVerified = useCallback(() => {
     setAgeVerified(true)
@@ -103,6 +104,24 @@ export default function Home() {
     }
   }
 
+  const handleCopy = useCallback(async (id: number, text: string) => {
+    try {
+      await navigator.clipboard.writeText(text)
+      setCopiedId(id)
+      setTimeout(() => {
+        setCopiedId((current) => (current === id ? null : current))
+      }, 2000)
+    } catch (error) {
+      console.error('Copy failed', error)
+      alert('Kopieren nicht möglich. Bitte manuell markieren und kopieren.')
+    }
+  }, [])
+
+  const handleClearFeed = useCallback(() => {
+    setFeed([])
+    setCopiedId(null)
+  }, [])
+
   const blueprintStats = useMemo(
     () => ({
       pages: blueprint.pages.length,
@@ -169,12 +188,30 @@ export default function Home() {
               <button onClick={handleAsk} disabled={isLoading} className="primary">
                 {isLoading ? 'ChatGPT denkt nach...' : 'Frage an ChatGPT'}
               </button>
+              <button onClick={handleClearFeed} disabled={feed.length === 0}>
+                Verlauf leeren
+              </button>
             </div>
             <div className="feed">
               {feed.length === 0 && <p className="muted">Keine Einträge – stell die erste Frage.</p>}
               {feed.map((item) => (
                 <div key={item.id} className="item">
-                  <b>{item.agent}</b>: {item.text}
+                  <div className="item-header">
+                    <b>{item.agent}</b>
+                    <div className="item-actions">
+                      <span className="muted small">
+                        {copiedId === item.id ? 'Kopiert!' : ''}
+                      </span>
+                      <button
+                        className="ghost"
+                        onClick={() => handleCopy(item.id, item.text)}
+                        aria-label={`${item.agent} kopieren`}
+                      >
+                        Kopieren
+                      </button>
+                    </div>
+                  </div>
+                  <p className="feed-text">{item.text}</p>
                 </div>
               ))}
             </div>

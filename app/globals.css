@@ -73,6 +73,17 @@ button {
   cursor: pointer;
 }
 
+button.ghost {
+  background: transparent;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  color: var(--text);
+  padding: 8px 10px;
+}
+
+button.ghost:hover {
+  border-color: rgba(255, 255, 255, 0.35);
+}
+
 button:disabled {
   opacity: 0.5;
   cursor: not-allowed;
@@ -99,6 +110,24 @@ select {
   background: rgba(255, 255, 255, .05);
   padding: 10px;
   border-radius: 12px;
+}
+
+.item-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+}
+
+.item-actions {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.feed-text {
+  margin: 6px 0 0 0;
+  line-height: 1.5;
 }
 
 .hero {
