@@ -94,7 +94,7 @@ export default function Home() {
     }
 
     if ("serviceWorker" in navigator) {
-      await navigator.serviceWorker.register("/sw.js");
+      await navigator.serviceWorker.register("/service-worker.js");
       alert("Offline aktiviert.");
     }
   };
