@@ -23,9 +23,6 @@ export async function POST(req: NextRequest) {
     const successUrl = `${appUrl}/success`;
     const cancelUrl = `${appUrl}/cancel`;
 
-    if (!successUrl || !cancelUrl) {
-      return new NextResponse('Missing checkout redirect URLs.', { status: 500 });
-    }
 
     const stripe = new Stripe(stripeSecretKey, { apiVersion: '2024-06-20' });
 
