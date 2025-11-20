@@ -1,4 +1,7 @@
 {
   "$schema": "https://openapi.vercel.sh/vercel.json",
-  "routes": [{ "src": "^/contact$", "dest": "/contact.html" }]
+  "routes": [
+    { "src": "^/contact$", "dest": "/contact.html" },
+    { "src": "^/system$", "dest": "/system.html" }
+  ]
 }
