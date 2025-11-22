@@ -1,52 +1,51 @@
 import "./globals.css";
-import type { Metadata, Viewport } from "next";
-import Script from "next/script";
+import type { Metadata } from "next";
+import { Inter, Playfair_Display } from "next/font/google";
+import Link from "next/link";
+import CookieBanner from "@/components/layout/CookieBanner";
 
-// Enable ISR with 10-minute revalidation
-export const revalidate = 600;
-
-export const viewport: Viewport = {
-  themeColor: "#8b5cf6",
-};
+const inter = Inter({ subsets: ["latin"], variable: "--font-inter" });
+const playfair = Playfair_Display({ subsets: ["latin"], variable: "--font-playfair" });
 
 export const metadata: Metadata = {
-  title: "YONI • pi² Control (18+)",
+  title: "PI² – Klarheit, Struktur, Fokus",
   description:
-    "YONI: Creator‑KI, Auto‑Translate, Transzendenz‑Hub. Minimal Flat Build für Vercel. Für Nutzer:innen ab 18 Jahren.",
-  manifest: "/manifest.json",
-  icons: {
-    apple: "/icons/icon-192.png",
-  },
-  appleWebApp: {
-    capable: true,
-    statusBarStyle: "black",
-    title: "YONI",
-  },
-  other: {
-    "age-rating": "18+",
-  },
+    "PI² ist eine Klarheits-Engine: Struktur, Fokus, Automatisierung und Cashflow-Transparenz in einem System.",
 };
 
-export default function RootLayout({
-  children,
-}: {
-  children: React.ReactNode;
-}) {
+export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="de">
-      <body>
-        {children}
-        <Script id="register-sw" strategy="afterInteractive">
-          {`
-            if ("serviceWorker" in navigator) {
-              window.addEventListener("load", () => {
-                navigator.serviceWorker
-                  .register("/service-worker.js")
-                  .catch(console.error);
-              });
-            }
-          `}
-        </Script>
+    <html lang="de" className={`${inter.variable} ${playfair.variable}`}>
+      <body className="min-h-screen bg-background text-text flex flex-col">
+        <header className="border-b border-gray-200">
+          <div className="container-wrapper flex items-center justify-between py-4">
+            <Link href="/" className="font-serif text-2xl text-primary">
+              PI²
+            </Link>
+            <nav className="flex items-center gap-6 text-sm text-gray-700">
+              <Link href="/">Home</Link>
+              <Link href="/dashboard">Dashboard</Link>
+              <Link href="/auth">Login</Link>
+            </nav>
+          </div>
+        </header>
+
+        <main className="flex-1">{children}</main>
+
+        <footer className="border-t border-gray-200 bg-gray-50">
+          <div className="container-wrapper flex flex-col gap-3 py-6 text-sm text-gray-700 md:flex-row md:items-center md:justify-between">
+            <p className="font-serif text-primary">PI²</p>
+            <div className="flex flex-wrap gap-4">
+              <Link href="/legal/impressum">Impressum</Link>
+              <Link href="/legal/datenschutz">Datenschutz</Link>
+              <Link href="/legal/agb">AGB</Link>
+              <Link href="/legal/cookies">Cookies</Link>
+              <Link href="/legal/security">Security</Link>
+            </div>
+          </div>
+        </footer>
+
+        <CookieBanner />
       </body>
     </html>
   );
