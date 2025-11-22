@@ -41,6 +41,31 @@ Die App vereint:
 
 ---
 
+## 🛠️ Install, Run & Build
+
+> Voraussetzung: **Node.js 18.17+** (siehe `package.json`).
+
+1. **Dependencies installieren**
+   ```bash
+   npm install
+   ```
+2. **Entwicklungsserver starten**
+   ```bash
+   npm run dev
+   ```
+3. **Produktions-Build erstellen**
+   ```bash
+   npm run build
+   ```
+4. **Build lokal testen**
+   ```bash
+   npm run start
+   ```
+
+Für weitere Details siehe auch die lokalen Guides im Repository (z. B. `YONI_Local_Run_Guide.md`).
+
+---
+
 ## 🧩 Design Tokens & Theme
 
 | Token            | Wert      | Bedeutung                               |
