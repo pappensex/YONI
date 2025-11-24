@@ -1,47 +1,64 @@
-import { NextRequest, NextResponse } from "next/server";
 import Stripe from "stripe";
+import { NextResponse } from "next/server";
 
-export const runtime = "nodejs";
+const stripeSecretKey = process.env.STRIPE_SECRET_KEY;
 
-function getStripeClient() {
-  const stripeSecretKey = process.env.STRIPE_SECRET_KEY;
-
-  if (!stripeSecretKey) {
-    throw new Error("STRIPE_SECRET_KEY is not configured");
-  }
-
-  return new Stripe(stripeSecretKey, { apiVersion: "2024-06-20" });
+if (!stripeSecretKey) {
+  console.warn("STRIPE_SECRET_KEY fehlt – Checkout-API im BLOCKER-Zustand.");
 }
 
-export async function POST(req: NextRequest) {
-  try {
-    const stripe = getStripeClient();
-    const body = await req.json();
+const stripe = stripeSecretKey ? new Stripe(stripeSecretKey) : null;
 
+export async function POST(request: Request) {
+  if (!stripe) {
+    return NextResponse.json(
+      { status: "BLOCKER", reason: "STRIPE_SECRET_KEY ist nicht gesetzt" },
+      { status: 500 }
+    );
+  }
+
+  const body = await request.json().catch(() => ({}));
+
+  const priceId = body.priceId as string | undefined;
+  const successUrl = body.successUrl as string | undefined;
+  const cancelUrl = body.cancelUrl as string | undefined;
+
+  if (!priceId || !successUrl || !cancelUrl) {
+    return NextResponse.json(
+      { status: "BLOCKER", reason: "priceId, successUrl, cancelUrl erforderlich" },
+      { status: 400 }
+    );
+  }
+
+  try {
     const session = await stripe.checkout.sessions.create({
       mode: "payment",
-
       line_items: [
         {
-          price_data: {
-            currency: "eur",
-            product_data: {
-              name: "YONI Support Access",
-            },
-            unit_amount: 1111, // €11,11
-          },
-          quantity: 1,
-        },
+          price: priceId,
+          quantity: 1
+        }
       ],
-
-      success_url: `${process.env.NEXT_PUBLIC_APP_URL}/success`,
-      cancel_url: `${process.env.NEXT_PUBLIC_APP_URL}/cancel`,
-      metadata: body?.metadata || {},
+      success_url: successUrl,
+      cancel_url: cancelUrl
     });
 
-    return NextResponse.json({ url: session.url });
+    return NextResponse.json(
+      {
+        status: "STABIL",
+        url: session.url
+      },
+      { status: 200 }
+    );
   } catch (err: any) {
-    console.error("❌ Error creating checkout session:", err);
-    return new NextResponse(`Error: ${err.message}`, { status: 400 });
+    console.error("Stripe Checkout Fehler:", err);
+    return NextResponse.json(
+      {
+        status: "BLOCKER",
+        reason: "Stripe Fehler",
+        detail: err?.message ?? "unbekannt"
+      },
+      { status: 500 }
+    );
   }
 }
