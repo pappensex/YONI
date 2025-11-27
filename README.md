@@ -66,6 +66,31 @@ Für weitere Details siehe auch die lokalen Guides im Repository (z. B. `YONI_
 
 ---
 
+## 🚀 NextAuth + Google OAuth Auto-Setup
+
+1. **Google OAuth-Client anlegen**
+   - Gehe zu https://console.cloud.google.com/apis/credentials → "Create OAuth Client ID" → Web Application.
+   - Origins: `http://localhost:3000` (plus deine Domain, z. B. `https://DEINE-DOMAIN.com`).
+   - Redirect URIs: `http://localhost:3000/api/auth/callback/google` (plus `https://DEINE-DOMAIN.com/api/auth/callback/google`).
+   - Kopiere `GOOGLE_CLIENT_ID` und `GOOGLE_CLIENT_SECRET`.
+2. **Auto-Installer ausführen**
+   ```bash
+   npm run setup:google-auth
+   ```
+   - Erstellt/aktualisiert `.env.local` mit Platzhaltern und einem generierten `NEXTAUTH_SECRET`.
+   - Legt die Route `app/api/auth/[...nextauth]/route.ts` mit Google-Provider an.
+3. **.env.local vervollständigen**
+   - Ersetze die Platzhalter für `GOOGLE_CLIENT_ID`/`GOOGLE_CLIENT_SECRET`.
+   - Setze `NEXTAUTH_URL` bei Deployments (z. B. `https://DEINE-DOMAIN.com`).
+4. **Dependency sicherstellen**
+   - Stelle sicher, dass `next-auth` installiert ist (`npm install`), falls dein lokales Setup keinen Zugriff auf das Paket hatte.
+5. **Login testen**
+   - `npm run dev` starten und `http://localhost:3000/api/auth/signin` öffnen → Google auswählen → zurück zur App.
+
+Fehlerhilfe: 400 = Redirect-URI-Mismatch, 403 = App im Testing Mode (E-Mail whitelisten), "Missing NEXTAUTH_URL/Secret" = `.env.local` prüfen.
+
+---
+
 ## 🧩 Design Tokens & Theme
 
 | Token            | Wert      | Bedeutung                               |
