@@ -3,9 +3,10 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="aion-build" content="2026-08-04-redeploy-1">
   <title>AION Revenue Engine</title>
   <style>
-    :root{font-family:Inter,system-ui,sans-serif;color:#f5f5f7;background:#0c0c11}body{margin:0;background:radial-gradient(circle at top,#29203f 0,#0c0c11 48%);min-height:100vh}.wrap{max-width:920px;margin:auto;padding:64px 22px}.eyebrow{letter-spacing:.18em;text-transform:uppercase;color:#bca7ff;font-size:.76rem}.card{background:rgba(20,19,28,.88);border:1px solid #363143;border-radius:22px;padding:28px;margin-top:22px;box-shadow:0 24px 80px rgba(0,0,0,.35)}h1{font-size:clamp(2.4rem,7vw,5rem);line-height:.95;margin:14px 0}h2{margin-top:0}p{color:#c9c5d2;line-height:1.6}.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:14px}.metric{padding:18px;background:#15131d;border-radius:16px}.metric strong{display:block;font-size:1.35rem;margin-top:6px}.pill{display:inline-block;padding:8px 12px;border-radius:999px;background:#211c31;color:#d7c9ff;margin:5px 4px 0 0}.ok{color:#8cf0bd}.warn{color:#ffd487}button{border:0;border-radius:14px;padding:13px 18px;font-weight:700;background:#d6c4ff;color:#17111f;cursor:pointer}pre{white-space:pre-wrap;background:#0c0b10;border-radius:14px;padding:16px;min-height:44px;color:#bfe8d1}</style>
+    :root{font-family:Inter,system-ui,sans-serif;color:#f5f5f7;background:#0c0c11}body{margin:0;background:radial-gradient(circle at top,#29203f 0,#0c0c11 48%);min-height:100vh}.wrap{max-width:920px;margin:auto;padding:64px 22px}.eyebrow{letter-spacing:.18em;text-transform:uppercase;color:#bca7ff;font-size:.76rem}.card{background:rgba(20,19,28,.88);border:1px solid #363143;border-radius:22px;padding:28px;margin-top:22px;box-shadow:0 24px 80px rgba(0,0,0,.35)}h1{font-size:clamp(2.4rem,7vw,5rem);line-height:.95;margin:14px 0}h2{margin-top:0}p{color:#c9c5d2;line-height:1.6}.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:14px}.metric{padding:18px;background:#15131d;border-radius:16px}.metric strong{display:block;font-size:1.35rem;margin-top:6px}.pill{display:inline-block;padding:8px 12px;border-radius:999px;background:#211c31;color:#d7c9ff;margin:5px 4px 0 0}.ok{color:#8cf0bd}.warn{color:#ffd487}button{border:0;border-radius:14px;padding:13px 18px;font-weight:700;background:#d6c4ff;color:#17111f;cursor:pointer}pre{white-space:pre-wrap;background:#0c0b10;border-radius:14px;padding:16px;min-height:44px;color:#bfe8d1}.build{font-size:.75rem;color:#827a91;margin-top:18px}</style>
 </head>
 <body><main class="wrap">
   <div class="eyebrow">piHOCH2 · YONI · AION</div>
@@ -19,7 +20,7 @@
     </div>
   </section>
   <section class="card"><h2>Agenten</h2><span class="pill">Scout</span><span class="pill">Evidence</span><span class="pill">Risk</span><span class="pill">CEO Policy</span><span class="pill">Audit Builder</span><span class="pill">Learning</span></section>
-  <section class="card"><h2>Systemcheck</h2><button onclick="health()">API prüfen</button><pre id="output">Noch nicht geprüft.</pre></section>
+  <section class="card"><h2>Systemcheck</h2><button onclick="health()">API prüfen</button><pre id="output">Noch nicht geprüft.</pre><div class="build">Build 2026-08-04 · redeploy-1</div></section>
 </main>
 <script>
 async function health(){const out=document.getElementById('output'),status=document.getElementById('status');try{const r=await fetch('/health');const j=await r.json();out.textContent=JSON.stringify(j,null,2);status.textContent=r.ok?'Online':'Fehler';status.className=r.ok?'ok':'warn'}catch(e){out.textContent='Backend noch nicht verbunden: '+e.message;status.textContent='Offline';status.className='warn'}}
