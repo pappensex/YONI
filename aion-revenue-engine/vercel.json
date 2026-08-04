@@ -2,10 +2,10 @@
   "$schema": "https://openapi.vercel.sh/vercel.json",
   "framework": null,
   "rewrites": [
-    { "source": "/", "destination": "/public/index.html" },
-    { "source": "/api/:path*", "destination": "/app.py" },
-    { "source": "/health", "destination": "/app.py" },
-    { "source": "/evaluate", "destination": "/app.py" },
-    { "source": "/audits/:path*", "destination": "/app.py" }
+    { "source": "/", "destination": "/index.html" },
+    { "source": "/health", "destination": "/api/health" },
+    { "source": "/actions/:path*", "destination": "/api/actions/:path*" },
+    { "source": "/experiments/:path*", "destination": "/api/experiments/:path*" },
+    { "source": "/audits/:path*", "destination": "/api/audits/:path*" }
   ]
 }
