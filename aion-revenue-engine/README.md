@@ -83,3 +83,7 @@ Profit-based learn / scale / stop
 - Standardpreis nach erfolgreicher Validierung: 79 Euro
 - keine Erfolgs- oder Umsatzgarantie
 - keine automatische Außenwirkung
+
+## Status
+
+Der Kern wurde direkt über die GitHub-Datei-API aufgebaut. Ein manueller Upload vom iPhone ist nicht erforderlich.
