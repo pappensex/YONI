@@ -3,26 +3,116 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width,initial-scale=1">
-  <meta name="aion-build" content="2026-08-04-redeploy-1">
-  <title>AION Revenue Engine</title>
+  <meta name="description" content="AION Website-Audit für lokale Dienstleister: Klarheit, Vertrauen und Handlungsführung prüfen.">
+  <meta name="aion-build" content="2026-08-04-audit-mvp">
+  <title>AION Website-Audit</title>
   <style>
-    :root{font-family:Inter,system-ui,sans-serif;color:#f5f5f7;background:#0c0c11}body{margin:0;background:radial-gradient(circle at top,#29203f 0,#0c0c11 48%);min-height:100vh}.wrap{max-width:920px;margin:auto;padding:64px 22px}.eyebrow{letter-spacing:.18em;text-transform:uppercase;color:#bca7ff;font-size:.76rem}.card{background:rgba(20,19,28,.88);border:1px solid #363143;border-radius:22px;padding:28px;margin-top:22px;box-shadow:0 24px 80px rgba(0,0,0,.35)}h1{font-size:clamp(2.4rem,7vw,5rem);line-height:.95;margin:14px 0}h2{margin-top:0}p{color:#c9c5d2;line-height:1.6}.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:14px}.metric{padding:18px;background:#15131d;border-radius:16px}.metric strong{display:block;font-size:1.35rem;margin-top:6px}.pill{display:inline-block;padding:8px 12px;border-radius:999px;background:#211c31;color:#d7c9ff;margin:5px 4px 0 0}.ok{color:#8cf0bd}.warn{color:#ffd487}button{border:0;border-radius:14px;padding:13px 18px;font-weight:700;background:#d6c4ff;color:#17111f;cursor:pointer}pre{white-space:pre-wrap;background:#0c0b10;border-radius:14px;padding:16px;min-height:44px;color:#bfe8d1}.build{font-size:.75rem;color:#827a91;margin-top:18px}</style>
+    :root{font-family:Inter,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;color:#f7f5fb;background:#0a0910;--panel:#15121d;--panel2:#1d1828;--line:#393044;--ink:#f7f5fb;--muted:#c9c2d2;--violet:#d6c4ff;--green:#8cf0bd;--amber:#ffd487;--red:#ff9f9f}*{box-sizing:border-box}body{margin:0;background:radial-gradient(circle at 15% 0,#33234c 0,#15101f 28%,#0a0910 66%);min-height:100vh}.wrap{max-width:1040px;margin:auto;padding:54px 20px 90px}.eyebrow{letter-spacing:.18em;text-transform:uppercase;color:#bca7ff;font-size:.75rem}h1{font-size:clamp(2.55rem,8vw,5.7rem);line-height:.92;margin:14px 0 18px;max-width:900px}h2{margin:0 0 10px;font-size:1.6rem}h3{margin:0 0 6px}p{color:var(--muted);line-height:1.6}.hero{max-width:760px;font-size:1.08rem}.card{background:rgba(21,18,29,.9);border:1px solid var(--line);border-radius:22px;padding:26px;margin-top:20px;box-shadow:0 24px 80px rgba(0,0,0,.32);backdrop-filter:blur(14px)}.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:14px}.metric{padding:18px;background:var(--panel2);border-radius:16px;border:1px solid #30283a}.metric strong{display:block;font-size:1.45rem;margin-top:6px}.ok{color:var(--green)}.warn{color:var(--amber)}.bad{color:var(--red)}label{display:block;font-weight:700;margin:15px 0 7px}input,textarea{width:100%;border:1px solid #44394f;background:#0e0c13;color:var(--ink);border-radius:13px;padding:13px;font:inherit;outline:none}input:focus,textarea:focus{border-color:#bca7ff;box-shadow:0 0 0 3px rgba(188,167,255,.12)}textarea{min-height:190px;resize:vertical}.form-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:0 14px}.full{grid-column:1/-1}button,.button{display:inline-flex;align-items:center;justify-content:center;border:0;border-radius:14px;padding:14px 18px;font-weight:800;background:var(--violet);color:#17111f;cursor:pointer;text-decoration:none}button:disabled{opacity:.55;cursor:wait}.secondary{background:#272031;color:#eadfff;border:1px solid #4a3d59}.actions{display:flex;gap:10px;flex-wrap:wrap;margin-top:18px}.notice{font-size:.86rem;color:#a9a1b2}.result{display:none}.scores{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:10px;margin:16px 0}.score{background:#0e0c13;border:1px solid #342b3e;border-radius:15px;padding:15px}.score span{display:block;color:#a99fb3;font-size:.8rem}.score strong{font-size:1.65rem}.finding{background:#0e0c13;border:1px solid #342b3e;border-radius:15px;padding:17px;margin-top:10px}.finding small{text-transform:uppercase;letter-spacing:.12em;color:#bca7ff}.proposal{background:linear-gradient(135deg,#21172f,#16121e);border:1px solid #4a3a5e;border-radius:17px;padding:18px;margin-top:16px}.price{font-size:2.3rem;font-weight:900;color:#fff}.statusline{display:flex;align-items:center;gap:8px}.dot{width:9px;height:9px;border-radius:50%;background:var(--amber)}.dot.ok{background:var(--green)}footer{margin-top:36px;color:#81798c;font-size:.8rem}@media(max-width:720px){.form-grid{grid-template-columns:1fr}.full{grid-column:auto}.scores{grid-template-columns:repeat(2,1fr)}.wrap{padding-top:38px}.card{padding:20px}}
+  </style>
 </head>
-<body><main class="wrap">
+<body>
+<main class="wrap">
   <div class="eyebrow">piHOCH2 · YONI · AION</div>
-  <h1>Revenue Engine</h1>
-  <p>Null-Budget-Ideen prüfen, Risiken vorab bewerten und nur kontrollierte, reversible Experimente freigeben.</p>
+  <h1>Website-Audit ohne Marketingnebel.</h1>
+  <p class="hero">AION prüft den sichtbaren Website-Text auf Klarheit, Vertrauen und Handlungsführung. Das Ergebnis erscheint direkt im Browser und zeigt, was zuerst verbessert werden sollte.</p>
+
   <section class="card">
     <div class="grid">
-      <div class="metric">Budget-Regel<strong>0 €</strong></div>
-      <div class="metric">Außenwirkung<strong class="warn">Freigabe</strong></div>
-      <div class="metric">API-Status<strong id="status">Prüfen</strong></div>
+      <div class="metric">Vorschau<strong>kostenlos</strong></div>
+      <div class="metric">Vollständiger Audit<strong>29 €</strong></div>
+      <div class="metric">API-Status<strong id="status" class="warn">Prüfung</strong></div>
     </div>
   </section>
-  <section class="card"><h2>Agenten</h2><span class="pill">Scout</span><span class="pill">Evidence</span><span class="pill">Risk</span><span class="pill">CEO Policy</span><span class="pill">Audit Builder</span><span class="pill">Learning</span></section>
-  <section class="card"><h2>Systemcheck</h2><button onclick="health()">API prüfen</button><pre id="output">Noch nicht geprüft.</pre><div class="build">Build 2026-08-04 · redeploy-1</div></section>
+
+  <section class="card" id="audit">
+    <h2>Kostenlose Sofortanalyse</h2>
+    <p>Füge den sichtbaren Text einer Website ein. AION bewertet keine Gestaltung, Technik oder Rechtskonformität, sondern ausschließlich die sprachliche Verkaufsführung.</p>
+    <form id="audit-form">
+      <div class="form-grid">
+        <div><label for="business">Unternehmen</label><input id="business" required maxlength="120" placeholder="Mustermann Gebäudeservice"></div>
+        <div><label for="offer">Hauptangebot</label><input id="offer" required maxlength="120" placeholder="Gebäudeservice"></div>
+        <div><label for="customer">Wunschkunden</label><input id="customer" required maxlength="160" placeholder="Hausverwaltungen und Eigentümer"></div>
+        <div><label for="action">Gewünschte Aktion</label><input id="action" required maxlength="100" value="Unverbindlich anfragen"></div>
+        <div class="full"><label for="website-text">Sichtbarer Website-Text</label><textarea id="website-text" required minlength="40" maxlength="20000" placeholder="Überschrift, Einleitung, Leistungen, Vertrauenssignale und Kontakttext hier einfügen …"></textarea></div>
+      </div>
+      <p class="notice">Keine vertraulichen oder personenbezogenen Daten einfügen. Die Anwendung speichert Audit-Eingaben nicht in einer eigenen Datenbank; technische Plattformprotokolle können dennoch entstehen.</p>
+      <div class="actions"><button id="submit" type="submit">Audit erstellen</button><button class="secondary" type="button" id="sample">Beispiel einsetzen</button></div>
+    </form>
+  </section>
+
+  <section class="card result" id="result" aria-live="polite">
+    <div class="statusline"><span class="dot ok"></span><strong>Analyse abgeschlossen</strong></div>
+    <h2 id="result-title">Ergebnis</h2>
+    <div class="scores">
+      <div class="score"><span>Gesamt</span><strong id="overall">–</strong></div>
+      <div class="score"><span>Klarheit</span><strong id="clarity">–</strong></div>
+      <div class="score"><span>Vertrauen</span><strong id="trust">–</strong></div>
+      <div class="score"><span>Aktion</span><strong id="action-score">–</strong></div>
+    </div>
+    <div id="findings"></div>
+    <div class="proposal"><small>Empfohlener Einstieg</small><h3 id="headline">–</h3><p>CTA: <strong id="cta">–</strong></p></div>
+  </section>
+
+  <section class="card">
+    <h2>Was der vollständige Audit enthält</h2>
+    <div class="grid">
+      <div class="metric">Prioritäten<strong>kritisch bis mittel</strong></div>
+      <div class="metric">Textvorschläge<strong>Headline + CTA</strong></div>
+      <div class="metric">Lieferformat<strong>kundenfertiger Bericht</strong></div>
+    </div>
+    <p>Der Zahlungs- und automatische Lieferweg wird als nächster kontrollierter Schritt verbunden. Bis dahin wird keine Zahlung ausgelöst.</p>
+  </section>
+
+  <footer>Hinweis: Der Audit ist eine automatisierte Orientierung und keine Rechts-, SEO- oder Umsatzgarantie. Build 2026-08-04 · audit-mvp</footer>
 </main>
 <script>
-async function health(){const out=document.getElementById('output'),status=document.getElementById('status');try{const r=await fetch('/health');const j=await r.json();out.textContent=JSON.stringify(j,null,2);status.textContent=r.ok?'Online':'Fehler';status.className=r.ok?'ok':'warn'}catch(e){out.textContent='Backend noch nicht verbunden: '+e.message;status.textContent='Offline';status.className='warn'}}
+const form=document.getElementById('audit-form');
+const submit=document.getElementById('submit');
+const result=document.getElementById('result');
+const statusEl=document.getElementById('status');
+
+async function health(){
+  try{const r=await fetch('/health',{cache:'no-store'});if(!r.ok)throw new Error('HTTP '+r.status);statusEl.textContent='online';statusEl.className='ok'}
+  catch(e){statusEl.textContent='offline';statusEl.className='bad'}
+}
+
+function escapeHtml(value){return String(value).replace(/[&<>'"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;',"'":'&#039;','"':'&quot;'}[c]));}
+
+form.addEventListener('submit',async event=>{
+  event.preventDefault();submit.disabled=true;submit.textContent='Analysiere …';
+  const payload={
+    business_name:document.getElementById('business').value.trim(),
+    website_text:document.getElementById('website-text').value.trim(),
+    primary_offer:document.getElementById('offer').value.trim(),
+    desired_customer:document.getElementById('customer').value.trim(),
+    desired_action:document.getElementById('action').value.trim()
+  };
+  try{
+    const response=await fetch('/audits/from-text',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(payload)});
+    if(!response.ok)throw new Error('Analyse fehlgeschlagen: HTTP '+response.status);
+    const data=await response.json();
+    document.getElementById('result-title').textContent='Audit für '+data.business_name;
+    document.getElementById('overall').textContent=data.overall_score+'/100';
+    document.getElementById('clarity').textContent=data.clarity_score+'/100';
+    document.getElementById('trust').textContent=data.trust_score+'/100';
+    document.getElementById('action-score').textContent=data.action_score+'/100';
+    document.getElementById('headline').textContent=data.suggested_headline;
+    document.getElementById('cta').textContent=data.suggested_cta;
+    const findings=data.findings||[];
+    document.getElementById('findings').innerHTML=findings.length?findings.map(f=>`<article class="finding"><small>${escapeHtml(f.priority)} · ${escapeHtml(f.area)}</small><h3>${escapeHtml(f.issue)}</h3><p>${escapeHtml(f.recommendation)}</p></article>`).join(''):'<article class="finding"><h3>Keine kritischen Klarheitsprobleme erkannt.</h3></article>';
+    result.style.display='block';result.scrollIntoView({behavior:'smooth',block:'start'});
+  }catch(error){alert(error.message+' Bitte prüfe den API-Status und versuche es erneut.');}
+  finally{submit.disabled=false;submit.textContent='Audit erstellen';}
+});
+
+document.getElementById('sample').addEventListener('click',()=>{
+  document.getElementById('business').value='Mustermann Gebäudeservice';
+  document.getElementById('offer').value='Gebäudeservice';
+  document.getElementById('customer').value='Hausverwaltungen und Eigentümer';
+  document.getElementById('action').value='Unverbindlich anfragen';
+  document.getElementById('website-text').value='Willkommen bei Mustermann Gebäudeservice. Wir kümmern uns zuverlässig um Immobilien und Außenanlagen. Seit 2018 betreuen wir private und gewerbliche Kunden. Kontaktieren Sie uns telefonisch oder per E-Mail und fordern Sie jetzt ein unverbindliches Angebot an.';
+});
 health();
-</script></body></html>
+</script>
+</body>
+</html>
