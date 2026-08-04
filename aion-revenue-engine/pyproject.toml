@@ -1,0 +1,17 @@
+[project]
+name = "aion-revenue-engine"
+version = "0.3.0"
+description = "Zero-budget, approval-gated AI revenue opportunity evaluator"
+requires-python = ">=3.11"
+dependencies = [
+  "openai-agents>=0.14.0",
+  "pydantic>=2.8",
+  "fastapi>=0.115",
+  "uvicorn>=0.30",
+]
+
+[project.optional-dependencies]
+dev = ["pytest>=8.0"]
+
+[tool.pytest.ini_options]
+pythonpath = ["."]
