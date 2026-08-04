@@ -5,6 +5,7 @@ import os
 from pathlib import Path
 
 from fastapi import FastAPI
+from fastapi.responses import RedirectResponse
 
 from aion.audit import audit_website, write_audit
 from aion.models import (
@@ -17,9 +18,18 @@ from aion.policy import evaluate_experiment, preflight_action
 app = FastAPI(title="AION Revenue Engine", version="0.3.0")
 
 
+@app.get("/", include_in_schema=False)
+def root() -> RedirectResponse:
+    return RedirectResponse(url="/index.html", status_code=307)
+
+
 @app.get("/health")
 def health() -> dict[str, str]:
-    return {"status": "ok", "mode": "zero-budget-approval-gated"}
+    return {
+        "status": "ok",
+        "service": "aion-revenue-engine",
+        "mode": "zero-budget-approval-gated",
+    }
 
 
 @app.post("/actions/preflight")
@@ -50,14 +60,17 @@ def cli() -> None:
     if not args.audit_file:
         parser.print_help()
         return
+
     text = Path(args.audit_file).read_text(encoding="utf-8")
-    report = audit_website(WebsiteAuditInput(
-        business_name=args.business_name,
-        website_text=text,
-        primary_offer=args.primary_offer,
-        desired_customer=args.desired_customer,
-        desired_action=args.desired_action,
-    ))
+    report = audit_website(
+        WebsiteAuditInput(
+            business_name=args.business_name,
+            website_text=text,
+            primary_offer=args.primary_offer,
+            desired_customer=args.desired_customer,
+            desired_action=args.desired_action,
+        )
+    )
     print(write_audit(report, args.output))
 
 
@@ -65,6 +78,7 @@ if __name__ == "__main__":
     port = os.environ.get("PORT")
     if port:
         import uvicorn
+
         uvicorn.run("main:app", host="0.0.0.0", port=int(port))
     else:
         cli()
