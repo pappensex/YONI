@@ -87,7 +87,7 @@ Für weitere Details siehe auch die lokalen Guides im Repository (z. B. `YONI_
 5. **Login testen**
    - `npm run dev` starten und `http://localhost:3000/api/auth/signin` öffnen → Google auswählen → zurück zur App.
 
-Fehlerhilfe: 400 = Redirect-URI-Mismatch, 403 = App im Testing Mode (E-Mail whitelisten), "Missing NEXTAUTH_URL/Secret" = `.env.local` prüfen.
+Fehlerhilfe:
 
 ---
 
