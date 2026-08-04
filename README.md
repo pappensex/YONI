@@ -82,7 +82,7 @@ Für weitere Details siehe auch die lokalen Guides im Repository (z. B. `YONI_
 3. **.env.local vervollständigen**
    - Ersetze die Platzhalter für `GOOGLE_CLIENT_ID`/`GOOGLE_CLIENT_SECRET`.
    - Setze `NEXTAUTH_URL` bei Deployments (z. B. `https://DEINE-DOMAIN.com`).
-4. **Dependency sicherstellen**
+4. **Dependency installieren**
    - Stelle sicher, dass `next-auth` installiert ist (`npm install`), falls dein lokales Setup keinen Zugriff auf das Paket hatte.
 5. **Login testen**
    - `npm run dev` starten und `http://localhost:3000/api/auth/signin` öffnen → Google auswählen → zurück zur App.
